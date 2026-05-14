@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ETEA Typing Test</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#0f1117;
+  --panel:#161b27;
+  --border:#2a3145;
+  --accent:#00d4ff;
+  --accent2:#ff6b35;
+  --green:#00e676;
+  --red:#ff4444;
+  --yellow:#ffd600;
+  --text:#c8d6e5;
+  --dim:#4a5568;
+  --white:#eef2f7;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Rajdhani',sans-serif;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:30px 20px;
+
+  background-image:
+  radial-gradient(ellipse at 20% 0%, rgba(0,212,255,0.06) 0%, transparent 60%),
+  radial-gradient(ellipse at 80% 100%, rgba(255,107,53,0.05) 0%, transparent 60%);
+}
+
+.header{
+  width:100%;
+  max-width:900px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+  border-bottom:1px solid var(--border);
+  padding-bottom:15px;
+}
+
+.logo{
+  font-family:'Share Tech Mono', monospace;
+  font-size:24px;
+  color:var(--accent);
+  letter-spacing:3px;
+}
+
+.logo span{
+  color:var(--accent2);
+}
+
+.subtitle{
+  font-size:12px;
+  letter-spacing:2px;
+  color:var(--dim);
+}
+
+.start-screen{
+  width:100%;
+  max-width:900px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-top:4px solid var(--accent);
+  border-radius:8px;
+  padding:50px;
+  text-align:center;
+}
+
+.start-screen h2{
+  font-size:32px;
+  color:var(--white);
+  margin-bottom:15px;
+}
+
+.start-screen p{
+  color:var(--dim);
+  line-height:1.7;
+  margin-bottom:25px;
+}
+
+.instructions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.instr-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:18px;
+}
+
+.ic-num{
+  display:block;
+  font-size:24px;
+  color:var(--accent);
+  margin-bottom:8px;
+}
+
+.btn{
+  padding:12px 28px;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:700;
+  letter-spacing:2px;
+  transition:.2s;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:#000;
+}
+
+.btn-secondary{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text);
+}
+
+.btn-secondary:hover{
+  border-color:var(--accent);
+}
+
+.duration-select{
+  background:var(--panel);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:4px;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.timer-section{
+  width:100%;
+  max-width:900px;
+  display:flex;
+  gap:20px;
+  margin-bottom:20px;
+}
+
+.timer-box{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-top:3px solid var(--accent);
+  padding:14px 25px;
+  border-radius:4px;
+  text-align:center;
+}
+
+.timer-label{
+  font-size:11px;
+  color:var(--dim);
+  letter-spacing:2px;
+  margin-bottom:4px;
+}
+
+.timer-value{
+  font-size:36px;
+  font-family:'Share Tech Mono', monospace;
+  color:var(--accent);
+}
+
+.warning{
+  color:var(--yellow);
+}
+
+.danger{
+  color:var(--red);
+}
+
+.progress-bar-wrap{
+  flex:1;
+}
+
+.progress-info{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  margin-bottom:8px;
+  color:var(--dim);
+}
+
+.progress-track{
+  height:6px;
+  background:var(--border);
+  border-radius:3px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--green));
+}
+
+.stats-row{
+  width:100%;
+  max-width:900px;
+  display:flex;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.stat-card{
+  flex:1;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:12px;
+  text-align:center;
+}
+
+.s-label{
+  font-size:11px;
+  letter-spacing:2px;
+  color:var(--dim);
+}
+
+.s-val{
+  margin-top:5px;
+  font-size:24px;
+  font-family:'Share Tech Mono', monospace;
+}
+
+.wpm .s-val{
+  color:var(--green);
+}
+
+.acc .s-val{
+  color:var(--accent);
+}
+
+.err .s-val{
+  color:var(--red);
+}
+
+.para-box{
+  width:100%;
+  max-width:900px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-left:4px solid var(--accent);
+  border-radius:4px;
+  padding:25px;
+  margin-bottom:18px;
+}
+
+.para-text{
+  font-family:'Courier Prime', monospace;
+  font-size:19px;
+  line-height:2;
+  color:var(--dim);
+}
+
+.word{
+  display:inline-block;
+  margin-right:6px;
+  padding:0 2px;
+}
+
+.word.current{
+  background:rgba(0,212,255,.15);
+  outline:1px solid var(--accent);
+  color:var(--white);
+}
+
+.word.correct{
+  color:var(--green);
+}
+
+.word.wrong{
+  color:var(--red);
+  background:rgba(255,68,68,.1);
+}
+
+.input-section{
+  width:100%;
+  max-width:900px;
+}
+
+.input-label{
+  font-size:11px;
+  letter-spacing:2px;
+  color:var(--dim);
+  margin-bottom:8px;
+}
+
+.input-row{
+  display:flex;
+  border:1px solid var(--border);
+  border-radius:4px;
+  overflow:hidden;
+}
+
+.input-row:focus-within{
+  border-color:var(--accent);
+}
+
+#wordInput{
+  flex:1;
+  background:var(--panel);
+  border:none;
+  outline:none;
+  color:var(--white);
+  font-size:20px;
+  padding:14px 20px;
+  font-family:'Courier Prime', monospace;
+}
+
+.enter-hint{
+  background:rgba(0,212,255,.08);
+  border-left:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:0 18px;
+  font-size:12px;
+  color:var(--dim);
+}
+
+.key-icon{
+  background:var(--border);
+  padding:3px 7px;
+  border-radius:3px;
+}
+
+.feedback-row{
+  display:flex;
+  justify-content:space-between;
+  margin-top:8px;
+  font-size:12px;
+}
+
+.current-word{
+  color:var(--accent);
+}
+
+.controls{
+  width:100%;
+  max-width:900px;
+  display:flex;
+  gap:12px;
+  margin-top:18px;
+}
+
+.result-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(10,13,20,.92);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.result-overlay.show{
+  display:flex;
+}
+
+.result-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-top:4px solid var(--accent);
+  border-radius:8px;
+  padding:40px;
+  width:90%;
+  max-width:600px;
+  text-align:center;
+}
+
+.result-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin:25px 0;
+}
+
+.result-item{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:18px;
+}
+
+.r-label{
+  font-size:11px;
+  color:var(--dim);
+  letter-spacing:2px;
+}
+
+.r-val{
+  margin-top:6px;
+  font-size:36px;
+  font-family:'Share Tech Mono', monospace;
+}
+
+.r-wpm .r-val{
+  color:var(--green);
+}
+
+.r-acc .r-val{
+  color:var(--accent);
+}
+
+.r-err .r-val{
+  color:var(--red);
+}
+
+.r-time .r-val{
+  color:var(--yellow);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="logo">ETEA <span>TYPE</span> TEST</div>
+  <div class="subtitle">Typing Practice Interface</div>
+</div>
+
+<div class="start-screen" id="startScreen">
+
+  <h2>⌨️ Typing Speed Test</h2>
+
+  <p>
+    Random typing paragraphs system. Every time a paragraph completes,
+    a new paragraph automatically appears.
+  </p>
+
+  <div class="instructions">
+
+    <div class="instr-card">
+      <span class="ic-num">01</span>
+      Highlighted word dekho
+    </div>
+
+    <div class="instr-card">
+      <span class="ic-num">02</span>
+      Exact word type karo
+    </div>
+
+    <div class="instr-card">
+      <span class="ic-num">03</span>
+      Enter press karo
+    </div>
+
+  </div>
+
+  <div style="display:flex;gap:12px;justify-content:center;">
+
+    <select class="duration-select" id="startDuration">
+      <option value="60">1 Minute</option>
+      <option value="120">2 Minutes</option>
+      <option value="180">3 Minutes</option>
+      <option value="300">5 Minutes</option>
+    </select>
+
+    <button class="btn btn-primary" onclick="startTest()">
+      START TEST
+    </button>
+
+  </div>
+
+</div>
+
+<div id="mainInterface" class="hidden" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+
+  <div class="timer-section">
+
+    <div class="timer-box">
+      <div class="timer-label">TIME LEFT</div>
+      <div class="timer-value" id="timerDisplay">60</div>
+    </div>
+
+    <div class="progress-bar-wrap">
+
+      <div class="progress-info">
+        <span id="progressLabel">0 / 0 words</span>
+        <span id="progressPct">0%</span>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="stats-row">
+
+    <div class="stat-card wpm">
+      <div class="s-label">WPM</div>
+      <div class="s-val" id="liveWpm">0</div>
+    </div>
+
+    <div class="stat-card acc">
+      <div class="s-label">Accuracy</div>
+      <div class="s-val" id="liveAcc">100%</div>
+    </div>
+
+    <div class="stat-card err">
+      <div class="s-label">Errors</div>
+      <div class="s-val" id="liveErr">0</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="s-label">Words</div>
+      <div class="s-val" id="liveWords">0</div>
+    </div>
+
+  </div>
+
+  <div class="para-box">
+    <div class="para-text" id="paraDisplay"></div>
+  </div>
+
+  <div class="input-section">
+
+    <div class="input-label">
+      Type exact highlighted word and press Enter
+    </div>
+
+    <div class="input-row">
+
+      <input
+      type="text"
+      id="wordInput"
+      placeholder="Type here..."
+      autocomplete="off"
+      spellcheck="false">
+
+      <div class="enter-hint">
+        <span class="key-icon">Enter</span>
+        Submit
+      </div>
+
+    </div>
+
+    <div class="feedback-row">
+      <span class="current-word" id="currentWordLabel">—</span>
+      <span id="wordCountLabel">Word 0 of 0</span>
+    </div>
+
+  </div>
+
+  <div class="controls">
+
+    <button class="btn btn-secondary" onclick="resetTest()">
+      Restart
+    </button>
+
+    <button class="btn btn-secondary" onclick="showStart()">
+      Back
+    </button>
+
+  </div>
+
+</div>
+
+<div class="result-overlay" id="resultOverlay">
+
+  <div class="result-card">
+
+    <h2>Your Results 🎯</h2>
+
+    <div class="result-grid">
+
+      <div class="result-item r-wpm">
+        <div class="r-label">WPM</div>
+        <div class="r-val" id="res-wpm">0</div>
+      </div>
+
+      <div class="result-item r-acc">
+        <div class="r-label">Accuracy</div>
+        <div class="r-val" id="res-acc">0%</div>
+      </div>
+
+      <div class="result-item r-err">
+        <div class="r-label">Errors</div>
+        <div class="r-val" id="res-err">0</div>
+      </div>
+
+      <div class="result-item r-time">
+        <div class="r-label">Time</div>
+        <div class="r-val" id="res-time">0s</div>
+      </div>
+
+    </div>
+
+    <button class="btn btn-primary"
+    onclick="resetTest();document.getElementById('resultOverlay').classList.remove('show')">
+      Try Again
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+const passages = [
+
+
+`Reading is one of the most valuable habits a person can develop in life. It improves knowledge, increases vocabulary, and strengthens thinking abilities. People who read regularly often understand ideas more clearly and communicate better with others. Reading books, newspapers, and educational materials can provide useful information and create new opportunities. It also helps reduce stress and improves concentration. Students especially benefit from reading because it supports learning and academic performance.`,
+
+`Technology has transformed the modern world in many ways. People use smartphones, computers, and the internet every day for communication, education, and entertainment. Technology has made many tasks easier and faster than before. Businesses use technology to improve productivity and provide better services to customers. Students also benefit from online learning resources and digital tools. However, people should use technology responsibly and maintain a balance in their daily lives.`,
+
+`Exercise is important for maintaining a healthy lifestyle and improving overall well being. Regular physical activity helps strengthen muscles, improve heart health, and increase energy levels. Exercise can also reduce stress and improve mental health. People who exercise regularly often feel more active and confident in their daily activities. Activities such as walking, running, cycling, and sports can provide many health benefits. Maintaining a fitness routine supports long term health.`,
+
+`Typing is a useful skill in today's digital world because many tasks require computers and electronic devices. Students, office workers, and writers all benefit from strong typing abilities. Regular typing practice can improve speed and accuracy over time. Faster typing allows people to complete tasks more efficiently and save valuable time. Developing this skill requires patience and continuous effort. Consistent practice helps create better performance and productivity.`,
+
+`Education plays a major role in shaping a person's future and improving society. Schools and universities provide knowledge, skills, and opportunities for personal development. Education helps individuals think critically and solve problems effectively. People with quality education often have better career opportunities and contribute positively to society. Learning should continue throughout life because knowledge constantly changes and expands. Continuous education supports growth and success.`,
+
+`Time management is an essential skill that helps people organize their daily activities and responsibilities. Proper planning allows individuals to complete tasks efficiently and reduce unnecessary stress. People who manage their time well often achieve their goals more effectively. Creating schedules and setting priorities can improve productivity and focus. Good time management also creates a healthy balance between work, study, and personal life. It is an important habit for long term success.`,
+
+`Healthy eating habits are important for maintaining physical and mental well being. A balanced diet provides nutrients that help the body function properly and remain strong. Fruits, vegetables, proteins, and healthy foods support growth and energy levels. People who maintain healthy eating habits often experience improved health and better performance in daily activities. Drinking enough water and avoiding excessive unhealthy foods can also contribute to overall wellness.`,
+
+`Communication is an important skill that affects relationships, education, and professional success. Effective communication involves listening carefully and expressing ideas clearly. Good communication helps people understand each other and avoid misunderstandings. Strong communication skills can improve teamwork and create positive interactions. These abilities are valuable in schools, workplaces, and social environments. Practicing communication regularly helps build confidence and understanding.`,
+
+`Success often requires determination, patience, and continuous effort. People rarely achieve important goals without hard work and dedication. Small steps taken consistently can eventually produce significant results. Challenges and difficulties are a natural part of the journey toward success. Learning from mistakes and remaining focused can help people continue progressing. Persistence and discipline often create better outcomes and opportunities.`,
+
+`Traveling allows people to explore different places and experience various cultures and traditions. Visiting new environments can increase knowledge and provide memorable experiences. Travelers often learn important lessons by interacting with different communities and observing different lifestyles. Traveling can also reduce stress and provide opportunities for relaxation and enjoyment. Exploring the world helps people develop broader perspectives and greater understanding of others.`
+`Reading is a crucial skill for students and professionals. It helps them understand complex concepts and information. Reading can also improve memory and reduce stress.`,
+`Education plays a major role in shaping a person's future and improving society. Schools and universities provide knowledge, skills, and opportunities for personal development. Education helps individuals think critically and solve problems effectively. People with quality education often have better career opportunities and contribute positively to society.`,
+`Education plays a major role in shaping a person's future and improving society. Schools and universities provide knowledge, skills, and opportunities for personal development. Education helps individuals think critically and solve problems effectively. People with quality.`,
+`Typing is a useful skill in today's digital world because many tasks require computers and electronic devices. Students, office workers, and writers all benefit from strong typing abilities. Regular typing practice can improve speed and accuracy over time. Faster typing allows people to complete tasks more efficiently and save valuable time. Developing this skill requires patience and continuous effort.`,
+`Exercise is important for maintaining a healthy lifestyle and improving overall well being. Regular physical activity helps strengthen muscles, improve heart health, and increase energy levels. Exercise can also reduce stress and improve mental health. People who exercise regularly often feel more active and confident in their daily activities. Activities such as walking, running, cycling, and sports can provide many health benefits.`,
+`Technology has transformed the modern world in many ways. People use smartphones, computers, and the internet every day for communication, education, and entertainment. Technology has made many tasks easier and faster than before. Businesses use technology to improve productivity and provide better services to customers. Students also benefit from online learning resources and digital tools. However people should use technology responsibly and maintain a balance in their daily lives.`,
+`Reading is one of the most valuable habits a person can develop in life. It improves knowledge, increases vocabulary, and strengthens thinking abilities. People who read regularly often understand ideas more clearly and communicate better with others. Reading books, newspapers, and educational materials can provide useful information and create new opportunities. It also helps reduce stress and improves concentration. Students especially benefit from reading because it supports learning and academic performance.`,
+
+`In a world that often pressures us to conform, dare to be different. Remember, there's only one you in this vast universe. Your unique blend of talents, experiences, quirks, and perspectives is what makes you extraordinary. Celebrate your individuality and let it radiate through your actions, your words, and your very being. Don't try to fit into a mold that doesn't suit you; instead, create your own path, one that aligns with your authentic self. When you embrace your uniqueness, you unlock your true potential and inspire others to do the same.`,
+`Medical transcription, also known as MT, is an allied health profession dealing with the process of transcribing voice-recorded medical reports that are dictated by physicians, nurses and other healthcare practitioners. Medical reports can be voice files, notes taken during a lecture, or other spoken material. These are dictated over the phone or uploaded digitally via the Internet or through smart phone apps.`,
+
+`Typing is a fundamental skill in the modern world. The more you practice, the faster and more accurate you become. Students, professionals, and writers all benefit from a high typing speed; it saves time and improves productivity.`,
+
+`Education plays an important role in building a successful society. Students who work hard and remain disciplined usually achieve their goals. Knowledge improves confidence, communication, and decision making in everyday life.`,
+
+`Technology has changed the way people communicate and work. Mobile phones, computers, and the internet make daily tasks easier. However, excessive use of technology can also reduce physical activity and social interaction.`,
+
+`Regular exercise improves physical and mental health. Walking, running, and healthy eating habits help people stay active and energetic. Doctors recommend daily exercise because it reduces stress and improves overall fitness.`,
+
+`Pakistan is a country rich in culture, history, and natural beauty. Mountains, rivers, and historical places attract tourists from around the world. The people of Pakistan are known for their hospitality and strong traditions.`,
+
+`Typing accuracy is more important than typing speed in many professional environments. A fast typist who makes frequent mistakes may create confusion and reduce productivity in the workplace.`,
+
+`Communication skills are essential in both academic and professional life. Clear communication helps people understand ideas, solve problems, and work together effectively.`,
+
+`Reading books improves vocabulary, concentration, and imagination. People who read regularly often develop stronger thinking and writing skills over time.`,
+
+`Time management helps students and professionals complete tasks efficiently. Planning daily activities and avoiding distractions increases productivity and reduces stress.`,
+
+`Climate change affects weather patterns, agriculture, and water resources around the world. Scientists encourage governments and citizens to protect the environment and reduce pollution.`
+
+];
+
+let words = [];
+let currentIdx = 0;
+let correctWords = 0;
+let errors = 0;
+
+let timeLeft = 60;
+let totalTime = 60;
+
+let timerInterval = null;
+let testRunning = false;
+let startTime = null;
+
+function buildPassage(){
+
+  const randomPassage =
+  passages[Math.floor(Math.random() * passages.length)];
+
+  words = randomPassage.split(' ');
+
+  const display =
+  document.getElementById('paraDisplay');
+
+  display.innerHTML = words.map((w,i)=>
+  `<span class="word ${i===0 ? 'current':''}" id="w${i}">${w}</span>`
+  ).join(' ');
+
+}
+
+function startTest(){
+
+  document.getElementById('startScreen')
+  .classList.add('hidden');
+
+  document.getElementById('mainInterface')
+  .classList.remove('hidden');
+
+  initTest();
+
+}
+
+function initTest(){
+
+  totalTime =
+  parseInt(document.getElementById('startDuration').value);
+
+  timeLeft = totalTime;
+
+  currentIdx = 0;
+  correctWords = 0;
+  errors = 0;
+
+  clearInterval(timerInterval);
+
+  buildPassage();
+
+  updateStats();
+  updateProgress();
+  updateWordLabel();
+  updateTimerDisplay();
+
+  const input =
+  document.getElementById('wordInput');
+
+  input.disabled = false;
+  input.value = '';
+  input.focus();
+
+  testRunning = false;
+
+}
+
+function resetTest(){
+  initTest();
+}
+
+function showStart(){
+
+  clearInterval(timerInterval);
+
+  document.getElementById('mainInterface')
+  .classList.add('hidden');
+
+  document.getElementById('startScreen')
+  .classList.remove('hidden');
+
+  document.getElementById('resultOverlay')
+  .classList.remove('show');
+
+}
+
+function startTimer(){
+
+  startTime = Date.now();
+
+  timerInterval = setInterval(()=>{
+
+    timeLeft--;
+
+    updateTimerDisplay();
+    updateStats();
+
+    if(timeLeft <= 0){
+      endTest();
+    }
+
+  },1000);
+
+}
+
+function updateTimerDisplay(){
+
+  const el =
+  document.getElementById('timerDisplay');
+
+  el.textContent = timeLeft;
+
+  el.className = 'timer-value';
+
+  if(timeLeft <= 10){
+    el.classList.add('danger');
+  }
+  else if(timeLeft <= 20){
+    el.classList.add('warning');
+  }
+
+}
+
+function updateStats(){
+
+  const elapsed =
+  startTime
+  ? (Date.now() - startTime) / 60000
+  : 0;
+
+  const wpm =
+  elapsed > 0
+  ? Math.round(correctWords / elapsed)
+  : 0;
+
+  const total =
+  correctWords + errors;
+
+  const acc =
+  total > 0
+  ? Math.round((correctWords / total) * 100)
+  : 100;
+
+  document.getElementById('liveWpm')
+  .textContent = wpm;
+
+  document.getElementById('liveAcc')
+  .textContent = acc + '%';
+
+  document.getElementById('liveErr')
+  .textContent = errors;
+
+  document.getElementById('liveWords')
+  .textContent = correctWords;
+
+}
+
+function updateProgress(){
+
+  const pct =
+  Math.round((currentIdx / words.length) * 100);
+
+  document.getElementById('progressFill')
+  .style.width = pct + '%';
+
+  document.getElementById('progressLabel')
+  .textContent =
+  `${currentIdx} / ${words.length} words`;
+
+  document.getElementById('progressPct')
+  .textContent = pct + '%';
+
+}
+
+function updateWordLabel(){
+
+  document.getElementById('currentWordLabel')
+  .textContent = words[currentIdx] || '—';
+
+  document.getElementById('wordCountLabel')
+  .textContent =
+  `Word ${currentIdx + 1} of ${words.length}`;
+
+}
+
+document.getElementById('wordInput')
+.addEventListener('keyup', function(){
+
+  if(!testRunning && this.value.trim().length > 0){
+
+    testRunning = true;
+
+    startTimer();
+
+  }
+
+});
+
+document.getElementById('wordInput')
+.addEventListener('keydown', function(e){
+
+  if(e.key === 'Enter'){
+
+    e.preventDefault();
+
+    submitWord();
+
+  }
+
+});
+
+function submitWord(){
+
+  if(!testRunning || timeLeft <= 0){
+    return;
+  }
+
+  const input =
+  document.getElementById('wordInput');
+
+  const typed =
+  input.value.trim();
+
+  if(!typed){
+    return;
+  }
+
+  const expected =
+  words[currentIdx];
+
+  const wordEl =
+  document.getElementById('w' + currentIdx);
+
+  wordEl.classList.remove('current');
+
+  if(typed === expected){
+
+    wordEl.classList.add('correct');
+
+    correctWords++;
+
+  }else{
+
+    wordEl.classList.add('wrong');
+
+    errors++;
+
+  }
+
+  input.value = '';
+
+  currentIdx++;
+
+  // NEW RANDOM PARAGRAPH
+  if(currentIdx >= words.length){
+
+    buildPassage();
+
+    currentIdx = 0;
+
+  }
+
+  document.getElementById('w' + currentIdx)
+  .classList.add('current');
+
+  updateStats();
+  updateProgress();
+  updateWordLabel();
+
+}
+
+function endTest(){
+
+  clearInterval(timerInterval);
+
+  testRunning = false;
+
+  document.getElementById('wordInput')
+  .disabled = true;
+
+  const elapsed =
+  (Date.now() - startTime) / 60000;
+
+  const wpm =
+  elapsed > 0
+  ? Math.round(correctWords / elapsed)
+  : 0;
+
+  const total =
+  correctWords + errors;
+
+  const acc =
+  total > 0
+  ? Math.round((correctWords / total) * 100)
+  : 100;
+
+  document.getElementById('res-wpm')
+  .textContent = wpm;
+
+  document.getElementById('res-acc')
+  .textContent = acc + '%';
+
+  document.getElementById('res-err')
+  .textContent = errors;
+
+  document.getElementById('res-time')
+  .textContent =
+  (totalTime - timeLeft) + 's';
+
+  document.getElementById('resultOverlay')
+  .classList.add('show');
+
+}
+
+</script>
+
+</body>
+</html>
