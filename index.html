@@ -456,11 +456,14 @@ body{
   overflow:hidden;
 }
 
-.react-good    { background:rgba(0,230,118,.15); border:2px solid var(--green);  color:var(--green); }
-.react-amazing { background:rgba(0,212,255,.15); border:2px solid var(--accent); color:var(--accent);}
-.react-dazzling{ background:rgba(255,107,53,.15); border:2px solid var(--accent2);color:var(--accent2);}
-.react-super   { background:rgba(255,214,0,.15);  border:2px solid var(--yellow); color:var(--yellow);}
-.react-legend  { background:rgba(200,100,255,.15);border:2px solid #c864ff;      color:#c864ff;}
+.react-practice  { background:rgba(255,68,68,.12);  border:2px solid var(--red);    color:var(--red);}
+.react-improving { background:rgba(255,152,0,.15);  border:2px solid #ff9800;       color:#ff9800;}
+.react-focus     { background:rgba(156,39,176,.15);  border:2px solid #ab47bc;       color:#ab47bc;}
+.react-good      { background:rgba(0,230,118,.15);   border:2px solid var(--green);  color:var(--green); }
+.react-amazing   { background:rgba(0,212,255,.15);   border:2px solid var(--accent); color:var(--accent);}
+.react-dazzling  { background:rgba(255,107,53,.15);  border:2px solid var(--accent2);color:var(--accent2);}
+.react-super     { background:rgba(255,214,0,.15);   border:2px solid var(--yellow); color:var(--yellow);}
+.react-legend    { background:rgba(200,100,255,.15); border:2px solid #c864ff;       color:#c864ff;}
 
 .reaction-badge::after{
   content:'';
@@ -1177,9 +1180,17 @@ function showWpmReaction(wpm){
     label='🎉 AMAZING! ' + wpm + ' WPM!';
     emojis=['🎉','🎊','👏','💪','😎'];
   } else if(wpm >= 20){
-    cls='react-good';
-    label='👍 GOOD JOB! ' + wpm + ' WPM';
-    emojis=['👍','😊','💚'];
+    cls='react-focus';
+    label='🎯 FOCUS ON ACCURACY! ' + wpm + ' WPM';
+    emojis=['🎯','🧠','💡','📝','⌨️'];
+  } else if(wpm >= 15){
+    cls='react-improving';
+    label='📈 YOU ARE IMPROVING! ' + wpm + ' WPM';
+    emojis=['📈','💪','🌱','😊','👀'];
+  } else if(wpm >= 10){
+    cls='react-practice';
+    label='⌨️ NEED MORE PRACTICE! ' + wpm + ' WPM';
+    emojis=['⌨️','📚','🔄','⏱️','😤'];
   } else {
     el.style.display='none';
     return;
@@ -1269,7 +1280,7 @@ function launchEmojis(emojis){
   font-family:'Share Tech Mono', monospace;
 ">
   <div style="color:var(--dim);font-size:12px;letter-spacing:2px;margin-bottom:12px;">
-    ©2026 <span style="color:var(--accent);">@idreesAlzeyadi</span> — All Rights Reserved
+    © 2025 <span style="color:var(--accent);">@idreesAlzeyadi</span> — All Rights Reserved
   </div>
   <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
 
